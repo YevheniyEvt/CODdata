@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import sqlalchemy
 
 col = ["id", "name", "alliance", "power", "merits", "killed", "dead", "healed", "date"]
 
