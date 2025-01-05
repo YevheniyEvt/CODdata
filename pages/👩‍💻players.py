@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 from load_data import data_players_statistic, data_name_id
-import datetime
 
 st.sidebar.markdown("# PLayer statistic")
 names = []

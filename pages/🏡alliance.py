@@ -1,10 +1,6 @@
-import datetime
 import streamlit as st
 import pandas as pd
 from load_data import data_alliance_power, data_alliance_merits
-# st.write(datetime.date.today())
-# st.write(datetime.date.today().strftime('%m.%d.%y'))
-
 
 st.sidebar.markdown("# Alliance statistic")
 st.title(" Alliance statistic")
