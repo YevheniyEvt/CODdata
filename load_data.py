@@ -3,17 +3,7 @@ import streamlit as st
 import pandas as pd
 import sqlalchemy
 import psycopg2
-import psycopg
-from streamlit.connections import SQLConnection
 col = ["id", "name", "alliance", "power", "merits", "killed", "dead", "healed", "date"]
-
-# def load_data(_table):
-    # st.cache_data.clear()
-    # conn = st.connection(name="my_database", ttl=5)
-    # query = f"SELECT * FROM {_table}"
-    # st.write("Виконується запит:", query)
-    # data = conn.query(query)
-    # return data
 
 st.cache_data.clear()
 def load_data(table):
@@ -21,16 +11,6 @@ def load_data(table):
     conn = st.connection(name ="my_database", ttl=3)
     data = conn.query(f"SELECT * FROM {table}")
     return data
-#     # conn = psycopg.connect(
-    #     user='genya',
-    #     password='H1TdkjbyQR2g',
-    #     host='ep-round-feather-a2r7rxys.eu-central-1.pg.koyeb.app',
-    #     port='5432',
-    #     dbname='codplayers1'
-    # )
-    # cur = conn.cursor()
-    # data = cur.execute(f"SELECT * FROM {table}")
-    # return data
 
 
 @st.cache_data(ttl=5)
