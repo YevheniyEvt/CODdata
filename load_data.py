@@ -15,6 +15,7 @@ col = ["id", "name", "alliance", "power", "merits", "killed", "dead", "healed", 
     # data = conn.query(query)
     # return data
 
+st.cache_data.clear()
 def load_data(table):
     st.cache_data.clear()
     conn = st.connection(name ="my_database", ttl=3)
