@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import sqlalchemy
+import psycopg2
 
 col = ["id", "name", "alliance", "power", "merits", "killed", "dead", "healed", "date"]
 
