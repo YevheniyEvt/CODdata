@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 from load_data import data_alliance_power, data_alliance_merits
 
+if st.button("Clear All"):
+    st.cache_data.clear()
+
 st.sidebar.markdown("# Alliance statistic")
 st.title(" Alliance statistic")
 st.divider()
