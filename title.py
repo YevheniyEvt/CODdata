@@ -1,10 +1,10 @@
 import streamlit as st
 from load_data import first_date, last_date
-st.set_page_config(
-    page_title="AC~DC",
-    page_icon="🦀",
-)
-st.sidebar.markdown("# 📑Title")
+# st.set_page_config(
+#     page_title="AC~DC",
+#     page_icon="🦀",
+# )
+# st.sidebar.markdown("# 📑Title")
 
 
 st.write("# AC-DC")

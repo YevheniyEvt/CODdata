@@ -17,7 +17,7 @@ def parameter_stat(player_id, parameter):
 
     data_player = data_players_statistic[data_players_statistic['id'] == player_id]
     parameter_player = data_player[[parameter, 'date']]
-    parameter_data = pd.Series(parameter_player[parameter].values, parameter_player['date']) #.astype(str)
+    parameter_data = pd.Series(parameter_player[parameter].values, parameter_player['date'].astype(str)) #.astype(str)
     widget = st.bar_chart(parameter_data, y_label=parameter.upper(), x_label='date'.upper())        #parameter_data.apply(lambda x:f"{x:,}") спробувати потім
 
     return widget
@@ -25,7 +25,7 @@ def parameter_stat(player_id, parameter):
 
 st.title('Players statistic')
 st.write("Select the player's name on the left panel")
-st.write('Units killed, units dead, units healed are total for flayer, :green-background[not for the season]🗂')
+st.write('Units killed, units dead, units healed are total for player, :green-background[not for the season]🗂')
 
 st.divider()
 st.caption('Here you can see how the data changed over a period of time. Dates are the dates the data was updated.📊')

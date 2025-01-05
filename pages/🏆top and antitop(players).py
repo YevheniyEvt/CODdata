@@ -26,6 +26,7 @@ data_players_statistic2 = pd.DataFrame(data_players_statistic[col[1:]].values,
 data_first_day = data_players_statistic2[data_players_statistic2['date'] == first_date]
 data_last_day = data_players_statistic2[data_players_statistic2['date'] == last_date]
 
+
 def top_ten():
 
     top_player = data_players_statistic2.loc[data_players_statistic2['date'] == last_date].sort_values('merits')
@@ -46,13 +47,12 @@ def percentage(number):
 
 
 def calculate_season_data(name_new_col, parameter):
-
     st.subheader(parameter.title(), divider=True)
     st.caption(f"Update date: {last_date}")
     show_parameter = st.checkbox(f"Click to watch {parameter} ")
     if show_parameter:
-        data_players_statistic2[name_new_col] = (data_last_day[parameter] - data_first_day[parameter])
-        st.write(data_players_statistic2[["name", name_new_col]])
+        data_last_day.loc[:, name_new_col] = (data_last_day[parameter] - data_first_day[parameter])
+        st.write(data_last_day[["name", name_new_col]])
 
 
 st.subheader("Merits ", divider=True)

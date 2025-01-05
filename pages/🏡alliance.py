@@ -8,25 +8,33 @@ st.divider()
 st.write("On the left sidebar, you can select an alliance and see the graphs of changes in strength and merits for this alliance below.📊")
 st.write("There are two graphs - merits and power, which show the change in this data by day.📉")
 
-alliances = []
-for i in data_alliance_power['name']:
-    if i not in alliances:
-        alliances.append(i)
+
+@st.cache_data(ttl=5)
+def list_alliances(data):
+    alliances = []
+    for i in data['name']:
+        if i not in alliances:
+            alliances.append(i)
+    return alliances
+
 dates = []
 for i in data_alliance_power['date']:
     if i not in dates:
         dates.append(i)
 
+alliances = list_alliances(data_alliance_power)
 alliance = st.sidebar.selectbox(
     "Choose alliance:",
     alliances
 )
+@st.cache_data(ttl=5)
+def alliance_stat(parameter, data_alliance, alliance_f):
+    alliance_statistic = data_alliance[(data_alliance['name'] == alliance_f)]
+    alliance_series = pd.Series(alliance_statistic[parameter].values, alliance_statistic['date'].astype(str))
 
-def alliance_stat(parameter, data_alliance):
-    alliance_statistic = data_alliance[(data_alliance['name'] == alliance)]
-    alliance_series = pd.Series(alliance_statistic[parameter].values, alliance_statistic['date'])
-    return st.bar_chart(alliance_series)
+    return alliance_series
 
+@st.cache_data(ttl=5)
 def calculate(parameter, data_alliance):
     data_alliance_start = data_alliance.loc[
         (data_alliance["name"] == alliance) & (data_alliance['date'] == start_date),
@@ -38,7 +46,7 @@ def calculate(parameter, data_alliance):
 
     return [data_alliance_start, data_alliance_end]
 
-
+@st.cache_data(ttl=5)
 def top_alliance(data_alliance, parameter):
     top_=[]
     last_date = data_alliance['date'].max()
@@ -81,11 +89,11 @@ st.subheader("Power and merits graph for chosen alliance", divider=True)
 power, merits = st.columns(2)
 if power.button('Power', use_container_width=True):
     power.caption(f"{alliance} power statistic ")
-    alliance_stat('power', data_alliance_power)
-
+    alliance_stat('power', data_alliance_power, alliance)
+    st.bar_chart(alliance_stat('power', data_alliance_power, alliance))
 if merits.button('merits', use_container_width=True):
     merits.caption(f"{alliance} merits statistic ")
-    alliance_stat('merits', data_alliance_merits)
+    st.bar_chart(alliance_stat('merits', data_alliance_merits, alliance))
 
 st.divider()
 
