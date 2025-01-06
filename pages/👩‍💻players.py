@@ -13,14 +13,13 @@ player = st.sidebar.selectbox(
     names
 )
 
-def parameter_stat(player_id, parameter):
+def parameter_stat(data, p_id, parameter):
 
-    data_player = data_players_statistic[data_players_statistic['id'] == player_id]
+    data_player = data[data['id'] == p_id]
     parameter_player = data_player[[parameter, 'date']]
-    parameter_data = pd.Series(parameter_player[parameter].values, parameter_player['date'].astype(str)) #.astype(str)
-    widget = st.bar_chart(parameter_data, y_label=parameter.upper(), x_label='date'.upper())        #parameter_data.apply(lambda x:f"{x:,}") спробувати потім
+    parameter_data = pd.Series(parameter_player[parameter].values, parameter_player['date'].astype(str))
 
-    return widget
+    return parameter_data
 
 
 st.title('Players statistic')
@@ -35,16 +34,21 @@ st.subheader(f" Name: {player}, (id:{player_id})", divider=True)
 
 power, merits, killed, dead, healed = st.columns(5)
 if power.button('Power', use_container_width=True):
-    parameter_stat(player_id, 'power')
+    widget_power = parameter_stat(data_players_statistic, player_id, 'power')
+    st.bar_chart(widget_power, y_label='power'.upper(), x_label='date'.upper())
 
 if merits.button('Merits', use_container_width=True):
-    parameter_stat(player_id, 'merits')
+    widget_merits = parameter_stat(data_players_statistic, player_id, 'merits')
+    st.bar_chart(widget_merits, y_label='merits'.upper(), x_label='date'.upper())
 
 if killed.button('Units killed', use_container_width=True):
-    parameter_stat(player_id, 'killed')
+    widget_killed = parameter_stat(data_players_statistic, player_id, 'killed')
+    st.bar_chart(widget_killed, y_label='killed'.upper(), x_label='date'.upper())
 
 if dead.button('Units dead', use_container_width=True):
-    parameter_stat(player_id, 'dead')
+    widget_dead = parameter_stat(data_players_statistic, player_id, 'dead')
+    st.bar_chart(widget_dead, y_label='dead'.upper(), x_label='date'.upper())
 
 if healed.button('Units healed', use_container_width=True):
-    parameter_stat(player_id, 'healed')
+    widget_healed = parameter_stat(data_players_statistic, player_id, 'healed')
+    st.bar_chart(widget_healed, y_label='healed'.upper(), x_label='date'.upper())
