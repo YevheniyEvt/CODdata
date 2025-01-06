@@ -3,26 +3,27 @@ import pandas as pd
 
 col = ["id", "name", "alliance", "power", "merits", "killed", "dead", "healed", "date"]
 
+@st.cache_resource()
 def load_data(table):
     conn = st.connection(name="my_database")
     data = conn.query(f"SELECT * FROM {table}")
     return data
 
-
+@st.cache_data()
 def load_player_statistic():
     player_statistic = load_data("players")
     data_players_statistic_f = pd.DataFrame(player_statistic, columns=col)
     return data_players_statistic_f
 data_players_statistic = load_player_statistic()
 
-
+@st.cache_data()
 def load_info_player():
     info_player = load_data("name_id")
     data_name_id_f = pd.DataFrame(info_player, columns=['id', 'name'])
     return data_name_id_f
 data_name_id = load_info_player()
 
-
+@st.cache_data()
 def load_alliance_power():
     st.cache_data.clear()
     alliance_power = load_data('all_power')
@@ -30,7 +31,7 @@ def load_alliance_power():
     return data_alliance_power_f
 data_alliance_power = load_alliance_power()
 
-
+@st.cache_data()
 def load_alliance_merits():
     alliance_merits = load_data('all_merits')
     data_alliance_merits_f = pd.DataFrame(alliance_merits, columns=['name', 'merits', 'date'])

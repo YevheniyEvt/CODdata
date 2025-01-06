@@ -73,22 +73,41 @@ if on:
 
     try:
         start_power, end_power = calculate('power', data_alliance_power, chose_alliance, start_day, end_day)
-        start_merits, end_merits = calculate('merits', data_alliance_merits, chose_alliance, start_day, end_day)
-
     except IndexError:
         st.exception(IndexError("Not enough data to count. Try to choose a different date or alliance."))
     except Exception:
         st.exception(Exception("Something going wrong.🤷‍♂️"))
     else:
         st.write(f"As of :blue-background[{start_day}] alliance :blue-background[{chose_alliance}] has the following data:")
-        st.write(f"Merits: :green-background[{format(start_merits, ',')}], power: :green-background[{format(start_power,',')}]")
+        st.write(f"power: :green-background[{format(start_power,',')}]")
 
-        st.write(f"As of :blue-background[{start_day}] alliance :blue-background[{chose_alliance}] has the following data:")
-        st.write(f"Merits: :green-background[{format(end_merits,',')}], power: :green-background[{format(end_power,',')}]")
+        st.write(f"As of :blue-background[{end_day}] alliance :blue-background[{chose_alliance}] has the following data:")
+        st.write(f"power: :green-background[{format(end_power,',')}]")
 
-        st.write(f"Difference merits is: :blue[{format((start_merits-end_merits),',')}]")
         st.write(f"Difference power is: :blue[{format((start_power-end_power), ',')}]")
+
+    try:
+        start_merits, end_merits = calculate('merits', data_alliance_merits, chose_alliance, start_day, end_day)
+    except IndexError:
+        st.exception(IndexError("Not enough data to count. Try to choose a different date or alliance."))
+    except Exception:
+        st.exception(Exception("Something going wrong.🤷‍♂️"))
+    else:
+        st.write(f"As of :blue-background[{start_day}] alliance :blue-background[{chose_alliance}] has the following data:")
+        st.write(
+            f"Merits: :green-background[{format(start_merits, ',')}]")
+
+        st.write(f"As of :blue-background[{end_day}] alliance :blue-background[{chose_alliance}] has the following data:")
+        st.write(
+            f"Merits: :green-background[{format(end_merits, ',')}]")
+
+        st.write(f"Difference merits is: :blue[{format((start_merits - end_merits), ',')}]")
+
 st.divider()
+
+
+
+
 
 st.subheader("Power and merits graph for chosen alliance", divider=True)
 
