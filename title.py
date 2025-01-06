@@ -8,6 +8,7 @@ from load_data import first_date, last_date
 
 
 st.write("# AC-DC")
+st.write(f":blue-background[Last update: {last_date}]")
 st.divider()
 st.write('Collected statistics on alliance players and some general statistics on other alliances💹.')
 st.write("On the left side there are tabs where you can choose what data you want to view.🥢")
@@ -23,6 +24,6 @@ st.write("To update the data🦀, I need to perform some manipulations, so the l
 st.divider()
 st.markdown(":blue[All graphs can be expanded to full screen.]📜️")
 st.divider()
-st.caption(f"Last update: {last_date}")
+
 
 
