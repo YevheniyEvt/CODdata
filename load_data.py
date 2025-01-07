@@ -74,3 +74,8 @@ server_names = [
     '244 TG',
     '211 K+DvF'
 ]
+
+list_dates = []
+for i in data_alliance_power['date']:
+    if i not in list_dates:
+        list_dates.append(i)

@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-from load_data import data_alliance_power, data_alliance_merits, last_date
-
+from load_data import data_alliance_power, data_alliance_merits, last_date, list_dates
+from functions import calculator
 st.sidebar.markdown("# Alliance statistic")
 st.title(" Alliance statistic")
 st.divider()
@@ -23,14 +23,6 @@ chose_alliance = st.sidebar.selectbox(
     "Choose alliance:",
     list_alliances_power
 )
-
-list_dates = []
-for i in data_alliance_power['date']:
-    if i not in list_dates:
-        list_dates.append(i)
-
-
-
 
 
 def alliance_stat(parameter, data_alliance, chosen_alliance):
@@ -68,45 +60,16 @@ st.caption('You can select two dates and the calculator will show the difference
 
 on = st.toggle("Show calculator")
 if on:
-    start_day = st.selectbox("Chose start date: ", list_dates)
-    end_day = st.selectbox("Chose end date: ", list_dates)
-
-    try:
-        start_power, end_power = calculate('power', data_alliance_power, chose_alliance, start_day, end_day)
-    except IndexError:
-        st.exception(IndexError("Not enough data to count. Try to choose a different date or alliance."))
-    except Exception:
-        st.exception(Exception("Something going wrong.🤷‍♂️"))
-    else:
-        st.write(f"As of :blue-background[{start_day}] alliance :blue-background[{chose_alliance}] has the following data:")
-        st.write(f"power: :green-background[{format(start_power,',')}]")
-
-        st.write(f"As of :blue-background[{end_day}] alliance :blue-background[{chose_alliance}] has the following data:")
-        st.write(f"power: :green-background[{format(end_power,',')}]")
-
-        st.write(f"Difference power is: :blue[{format((start_power-end_power), ',')}]")
-
-    try:
-        start_merits, end_merits = calculate('merits', data_alliance_merits, chose_alliance, start_day, end_day)
-    except IndexError:
-        st.exception(IndexError("Not enough data to count. Try to choose a different date or alliance."))
-    except Exception:
-        st.exception(Exception("Something going wrong.🤷‍♂️"))
-    else:
-        st.write(f"As of :blue-background[{start_day}] alliance :blue-background[{chose_alliance}] has the following data:")
-        st.write(
-            f"Merits: :green-background[{format(start_merits, ',')}]")
-
-        st.write(f"As of :blue-background[{end_day}] alliance :blue-background[{chose_alliance}] has the following data:")
-        st.write(
-            f"Merits: :green-background[{format(end_merits, ',')}]")
-
-        st.write(f"Difference merits is: :blue[{format((start_merits - end_merits), ',')}]")
-
-st.divider()
-
-
-
+    choose_parameter = st.selectbox("Chose parameter. Chose server in sidebar.", ["power", "merits"])
+    start, end = st.columns(2)
+    with start:
+        start_day = st.selectbox("Chose start date: ", list_dates)
+    with end:
+        end_day = st.selectbox("Chose end date: ", list_dates)
+    if choose_parameter == "power":
+        calculator(chose_alliance, data_alliance_power, start_day, end_day, 'power')
+    elif choose_parameter == "merits":
+        calculator(chose_alliance, data_alliance_merits, start_day, end_day, 'merits')
 
 
 st.subheader("Power and merits graph for chosen alliance", divider=True)
