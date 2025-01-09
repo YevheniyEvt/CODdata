@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from load_data import data_alliance_power, data_alliance_merits, server_names, server_list, last_date, list_dates
+from load_data import data_alliance_power, data_alliance_merits, SERVER_NAMES, SERVER_LIST, last_date, list_dates
 from functions import calculator
 
 st.sidebar.markdown("# Server statistic")
@@ -51,12 +51,12 @@ st.caption('You can select two dates and the calculator will show the difference
 servers_data = None
 choose_parameter = st.selectbox("Chose parameter. Chose server in sidebar.", ["power", "merits"])
 if choose_parameter == "power":
-    servers_data = create_server_dataframe(server_list, server_names, choose_parameter, data_alliance_power)
+    servers_data = create_server_dataframe(SERVER_LIST, SERVER_NAMES, choose_parameter, data_alliance_power)
 elif choose_parameter == "merits":
-    servers_data = create_server_dataframe(server_list, server_names, choose_parameter, data_alliance_merits)
+    servers_data = create_server_dataframe(SERVER_LIST, SERVER_NAMES, choose_parameter, data_alliance_merits)
 
-for index in range(len(server_list)):
-    show_alliances_and_calculator(server_names[index], server_list[index], servers_data, choose_parameter)
+for index in range(len(SERVER_LIST)):
+    show_alliances_and_calculator(SERVER_NAMES[index], SERVER_LIST[index], servers_data, choose_parameter)
 
 
 # def chosen_server_data(server_names, chosen_server, server_list, parameter, data_alliance):
@@ -69,14 +69,14 @@ for index in range(len(server_list)):
 
 st.subheader("Power graph for servers", divider=True)
 st.caption(f"Expand to full screen for a better view. Update date:{last_date}")
-chosen_server = st.multiselect(label="Chose servers", options =server_names, default=server_names[:3])
+chosen_server = st.multiselect(label="Chose servers", options =SERVER_NAMES, default=SERVER_NAMES[:3])
 st.divider()
 try:
     # chosen_servers_data_power = chosen_server_data(server_names, chosen_server, server_list, 'power', data_alliance_power)
     chosen_servers_data_power = []
-    for index in range(len(server_names)):
-        if server_names[index] in chosen_server:
-            chosen_servers_data_power.append(create_server_data(server_list[index], server_names[index], 'power', data_alliance_power))
+    for index in range(len(SERVER_NAMES)):
+        if SERVER_NAMES[index] in chosen_server:
+            chosen_servers_data_power.append(create_server_data(SERVER_LIST[index], SERVER_NAMES[index], 'power', data_alliance_power))
 except Exception:
     st.exception(Exception("Something going wrong.🤷‍♂️"))
 else:
@@ -89,13 +89,13 @@ else:
 
 st.subheader("Merits graph for servers", divider=True)
 st.caption(f"Expand to full screen for a better view. Update date:{last_date}")
-chosen_server = st.multiselect(label="Chose servers", options =server_names, default=server_names[:1])
+chosen_server = st.multiselect(label="Chose servers", options =SERVER_NAMES, default=SERVER_NAMES[:1])
 st.divider()
 try:
     servers_data_merits = []
-    for index in range(len(server_list)):
-        if server_names[index] in chosen_server:
-            servers_data_merits.append(create_server_data(server_list[index], server_names[index], 'merits', data_alliance_merits))
+    for index in range(len(SERVER_LIST)):
+        if SERVER_NAMES[index] in chosen_server:
+            servers_data_merits.append(create_server_data(SERVER_LIST[index], SERVER_NAMES[index], 'merits', data_alliance_merits))
 except Exception:
     st.exception(Exception("Something going wrong.🤷‍♂️"))
 else:

@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
+import datetime
 
-col = ["id", "name", "alliance", "power", "merits", "killed", "dead", "healed", "date"]
+COLUMNS_PLAYERS = ["id", "name", "alliance", "power", "merits", "killed", "dead", "healed", "date"]
 
 @st.cache_resource()
 def load_data(table):
@@ -12,7 +13,7 @@ def load_data(table):
 @st.cache_data()
 def load_player_statistic():
     player_statistic = load_data("players")
-    data_players_statistic_f = pd.DataFrame(player_statistic, columns=col)
+    data_players_statistic_f = pd.DataFrame(player_statistic, columns=COLUMNS_PLAYERS)
     return data_players_statistic_f
 data_players_statistic = load_player_statistic()
 
@@ -40,7 +41,8 @@ data_alliance_merits = load_alliance_merits()
 
 
 last_date = data_players_statistic['date'].max()
-first_date = data_players_statistic['date'].min()
+# first_date = data_players_statistic['date'].min()
+FIRST_DAY = datetime.date.fromisoformat("2025-01-09")
 
 server_220 = ['[D~C]Demons of Chaos', '[A~C]Angels Of Chaos']
 server_113 = ['[CMAR]Chill Martians', '[CMA1] Chill Martians 1', '[CMA2] Chill Martians 2' ]
@@ -53,7 +55,7 @@ server_244 = ['[TG:B] Together B Team', '[TG:A] Together ATeam', '[TG:&]Together
             "[TG:#]Together We Strong"]
 server_211 = ['[K211]NEXUS', '[DvF]Divine Future', '[211F]K211 Farm']
 
-server_list = [
+SERVER_LIST = [
     server_220,
     server_113,
     server_110,
@@ -64,7 +66,7 @@ server_list = [
     server_211
 ]
 
-server_names = [
+SERVER_NAMES = [
     '220 AC-DC',
     '113 CMAR',
     '110 ROA',

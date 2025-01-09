@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from load_data import data_players_statistic, last_date, first_date
+from load_data import data_players_statistic, last_date, FIRST_DAY
 
 pd.options.mode.copy_on_write = True
 st.title("TOP AC-DC")
@@ -23,7 +23,7 @@ data_players_statistic_top = pd.DataFrame(data_players_statistic[col[1:]].values
                                           columns=col[1:])
 
 
-data_first_day = data_players_statistic_top[data_players_statistic_top['date'] == first_date]
+data_first_day = data_players_statistic_top[data_players_statistic_top['date'] == FIRST_DAY]
 data_last_day = data_players_statistic_top[data_players_statistic_top['date'] == last_date]
 
 
