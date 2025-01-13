@@ -2,15 +2,20 @@ import streamlit as st
 
 
 def find_data(name, data, start_day, end_day, parameter):
+    try:
+        data_start = data.loc[
+            (data["name"] == name) & (data['date'] == start_day),
+            parameter].iloc[0]
+    except IndexError:
+        data_start = 0
 
-    data_start = data.loc[
-        (data["name"] == name) & (data['date'] == start_day),
-        parameter].iloc[0]
-
-    data_end = data.loc[
-        (data["name"] == name) & (data['date'] == end_day),
-        parameter].iloc[0]
-
+    try:
+        data_end = data.loc[
+            (data["name"] == name) & (data['date'] == end_day),
+            parameter].iloc[0]
+    except IndexError:
+        data_end = 0
+    print([data_start, data_end])
     return [data_start, data_end]
 
 

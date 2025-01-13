@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from load_data import data_players_statistic, last_date, FIRST_DAY
 
+
 pd.options.mode.copy_on_write = True
 st.title("TOP AC-DC")
 st.sidebar.markdown("# PLayer statistic")

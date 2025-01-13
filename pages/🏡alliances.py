@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from load_data import data_alliance_power, data_alliance_merits, last_date, list_dates
 from functions import calculator
+
+
 st.sidebar.markdown("# Alliance statistic")
 st.title(" Alliance statistic")
 st.divider()

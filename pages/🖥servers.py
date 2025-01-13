@@ -21,7 +21,10 @@ def create_server_data(server_alliances, server_name, parameter, data_alliance_p
         data = data_alliance_parameter[data_alliance_parameter['date'] == date]
         suma_parameters = 0
         for alliance in server_alliances:
-            suma_parameters += data.loc[data['name'] == alliance, parameter].iloc[0]
+            if alliance in data["name"].values:
+                suma_parameters += data.loc[data['name'] == alliance, parameter].iloc[0]
+            else:
+                suma_parameters += 0
         server_list1.append((server_name, suma_parameters, date))
     df_server = pd.DataFrame(server_list1, columns=['name', parameter, 'date'])
     return df_server
