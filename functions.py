@@ -15,7 +15,7 @@ def find_data(name, data, start_day, end_day, parameter):
             parameter].iloc[0]
     except IndexError:
         data_end = 0
-    print([data_start, data_end])
+
     return [data_start, data_end]
 
 

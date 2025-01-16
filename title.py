@@ -23,6 +23,7 @@ st.divider()
 
 st.write("Upd:")
 st.write("2025-01-07 Added a calculator for server merits and power")
+st.write("2025-01-13 Improved server data calculation and alliance data calculator")
 
 
 
